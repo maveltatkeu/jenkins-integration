@@ -1,0 +1,11 @@
+spring:
+    application:
+        name: jenkins-integration
+management:
+    endpoints:
+        web:
+            exposure:
+                include:
+                    - "*"
+    server:
+        port: 8081
