@@ -1,16 +1,31 @@
-#!groovy
 pipeline {
-    agent none
-   stages {
-    stage('Maven Install') {
-      agent {
-       docker {
-         image 'maven:3.5.0'
-     }
-  }
-  steps {
-       sh 'mvn clean install'
-       }
-     }
-   }
- }
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Building'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deployment'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing'
+            }
+        }
+        stage('Release') {
+            steps {
+                echo 'Releasing'
+            }
+        }
+    }
+}
