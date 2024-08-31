@@ -1,8 +1,6 @@
 pipeline {
     agent any
-    tools{
-        maven 'maven_3_5_0'
-    }
+
     stages{
         stage('Build Maven'){
             steps{
@@ -20,14 +18,18 @@ pipeline {
         stage('Push image to Hub'){
             steps{
                 script{
-                   withCredentials([string(credentialsId: 'Cheom-#Dck0', variable: 'dockerhubpwd')]) {
-                   sh 'docker login -u koraWings -p ${dockerhubpwd}'
-
-}
+                   withCredentials([usernamePassword(credentialsId: 'Docker', passwordVariable: 'PWD', usernameVariable: 'USR')]) {
+                    sh 'docker login -u ${USR} -p ${PWD}'
                    sh 'docker push javatechie/devops-integration'
                 }
             }
         }
-
+        stage('Deploy to k8s'){
+            steps{
+                script{
+                    kubernetesDeploy (configs: 'deploymentservice.yaml',kubeconfigId: 'k8sconfigpwd')
+                }
+            }
+        }
     }
 }
