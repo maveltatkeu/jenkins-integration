@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    tools{
+        maven 'maven 3.9.7'
+    }
     stages{
         stage('Build Maven'){
             steps{
@@ -19,7 +21,10 @@ pipeline {
             steps{
                 script{
                    withCredentials([usernamePassword(credentialsId: 'Docker', passwordVariable: 'PWD', usernameVariable: 'USR')]) {
-                    sh 'docker login -u ${USR} -p ${PWD}'
+                   sh 'docker login -u ${USR} -p ${PWD}'
+                  sh 'docker push javatechie/devops-integration'
+
+}
                    sh 'docker push javatechie/devops-integration'
                 }
             }
