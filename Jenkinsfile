@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment {
+        DOCKERHUB_CREDENTIALS= credentials('Docker')
+    }
     stages{
         stage('Build Maven'){
             steps{
@@ -18,9 +20,8 @@ pipeline {
         stage('Push image to Hub'){
             steps{
                 script{
-                   withCredentials([usernamePassword(credentialsId: 'Docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                   bat 'docker login -u ${usernameVariable} -p ${passwordVariable}'
-                    }
+
+                   bat 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                    bat 'docker push kora1/devops-integration'
                 }
             }
