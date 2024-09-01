@@ -18,7 +18,7 @@ pipeline {
         stage('Push image to Hub'){
             steps{
                 script{
-                   withCredentials([string(credentialsId: 'Cheom-#Dck0', variable: 'dockerhubpwd')]) {
+                   withCredentials([string(credentialsId: 'Docker', variable: 'dockerhubpwd')]) {
                    bat 'docker login -u koraWings -p ${dockerhubpwd}'
 
 }
