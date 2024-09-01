@@ -1,7 +1,8 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_CREDENTIALS= credentials('Docker')
+    def name="IFOIHWOH"
+    def DOCKERHUB_CREDENTIALS= credentials('Docker')
     }
     stages{
         stage('Build Maven'){
@@ -22,7 +23,8 @@ pipeline {
                 script{
 
                    bat 'echo ${DOCKERHUB_CREDENTIALS_PSW}  '
-                   bat 'echo ${DOCKERHUB_CREDENTIALS_USR} '
+                   bat 'echo $DOCKERHUB_CREDENTIALS_USR'
+                   bat 'echo $name'
                    bat 'docker push kora1/devops-integration'
                    echo 'Login Completed'
                 }
