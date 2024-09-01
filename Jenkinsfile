@@ -21,8 +21,8 @@ pipeline {
             steps{
                 script{
 
-                   bat 'echo $DOCKERHUB_CREDENTIALS_PSW  '
-                   bat 'echo $DOCKERHUB_CREDENTIALS_USR '
+                   bat 'echo ${DOCKERHUB_CREDENTIALS_PSW}  '
+                   bat 'echo ${DOCKERHUB_CREDENTIALS_USR} '
                    bat 'docker push kora1/devops-integration'
                    echo 'Login Completed'
                 }
